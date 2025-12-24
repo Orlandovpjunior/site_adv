@@ -14,85 +14,23 @@
  */
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 // ⚙️ CONFIGURE SEU NÚMERO DO WHATSAPP AQUI
 const WHATSAPP_NUMBER = "5583996754636"; // Altere para o número real
 
+// Mensagem pré-definida que será enviada
+const DEFAULT_MESSAGE = "Olá! Gostaria de informações para consulta jurídica.";
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Formata a mensagem para WhatsApp
-    const whatsappMessage = `Olá! Recebi uma mensagem através do site:\n\n` +
-      `*Nome:* ${formData.name}\n` +
-      `*Email:* ${formData.email}\n` +
-      (formData.phone ? `*Telefone:* ${formData.phone}\n` : '') +
-      `*Assunto:* ${formData.subject}\n\n` +
-      `*Mensagem:*\n${formData.message}`;
-    
+  const handleWhatsAppClick = () => {
     // Codifica a mensagem para URL
-    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const encodedMessage = encodeURIComponent(DEFAULT_MESSAGE);
     
     // Abre o WhatsApp Web/App
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
-
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
   };
-
-  const contactInfo = [
-    {
-      icon: Phone,
-      title: "Telefone",
-      content: "(00) 0000-0000",
-      link: "tel:+5500000000000",
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      content: "contato@escritorio.com.br",
-      link: "mailto:contato@escritorio.com.br",
-    },
-    {
-      icon: MapPin,
-      title: "Endereço",
-      content: "Endereço do escritório, Cidade - Estado",
-      link: "#",
-    },
-  ];
 
   return (
     <section
@@ -117,191 +55,48 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact Info */}
-          <div className="lg:col-span-1 space-y-6">
-            {contactInfo.map((info, index) => (
-              <motion.div
-                key={info.title}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 mb-1">
-                      {info.title}
-                    </h3>
-                    <a
-                      href={info.link}
-                      className="text-gray-600 hover:text-primary-600 transition-colors"
-                    >
-                      {info.content}
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-2"
-          >
-            <div className="bg-gray-50 p-8 rounded-xl shadow-lg">
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
-                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Mensagem Enviada!
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Você será redirecionado para o WhatsApp para finalizar o contato.
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Se o WhatsApp não abrir, verifique se está instalado no seu dispositivo.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Nome Completo *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
-                        placeholder="Seu nome"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
-                        placeholder="seu@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Telefone
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
-                        placeholder="(00) 00000-0000"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Assunto *
-                      </label>
-                      <select
-                        id="subject"
-                        name="subject"
-                        required
-                        value={formData.subject}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
-                      >
-                        <option value="">Selecione um assunto</option>
-                        <option value="consulta">Consulta Jurídica</option>
-                        <option value="contrato">Contratos</option>
-                        <option value="trabalhista">Direito Trabalhista</option>
-                        <option value="familia">Direito de Família</option>
-                        <option value="outro">Outro</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Mensagem *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all resize-none"
-                      placeholder="Descreva sua necessidade ou dúvida..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-4 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span>Enviando...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Enviar Mensagem</span>
-                        <Send className="w-5 h-5" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
+        {/* Card do WhatsApp */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-md mx-auto"
+        >
+          <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+            {/* Ícone do WhatsApp */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <MessageCircle className="w-10 h-10 text-green-600" />
+              </div>
             </div>
-          </motion.div>
-        </div>
+
+            {/* Título */}
+            <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+              Fale Conosco
+            </h3>
+
+            {/* Texto explicativo */}
+            <p className="text-gray-600 text-center mb-8">
+              Clique no botão abaixo para iniciar uma conversa no WhatsApp
+            </p>
+
+            {/* Botão do WhatsApp */}
+            <button
+              onClick={handleWhatsAppClick}
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center space-x-3"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>Conversar no WhatsApp</span>
+            </button>
+
+            {/* Texto de garantia */}
+            <p className="text-sm text-gray-500 text-center mt-6">
+              Resposta garantida em até 24 horas
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
-
