@@ -7,8 +7,12 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Escritório de Advocacia - Consultoria Jurídica Especializada",
+  title: "Beatriz Cunha - Advocacia e Consultoria Jurídica Especializada",
   description: "Serviços jurídicos especializados com excelência e dedicação. Atendimento personalizado para suas necessidades legais.",
+  icons: {
+    icon: "/marca dagua preta.png",
+    apple: "/marca dagua preta.png",
+  },
 };
 
 export default function RootLayout({

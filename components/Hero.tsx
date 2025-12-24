@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Scale } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useBasePath } from "@/lib/useBasePath";
 
 export default function Hero() {
+  const basePath = useBasePath();
+  
   return (
     <section
       id="home"
@@ -83,7 +86,7 @@ export default function Hero() {
             <div className="relative w-full max-w-md mx-auto h-[500px] rounded-2xl shadow-2xl bg-gradient-to-br from-primary-50 to-accent-50 p-8 flex items-center justify-center">
               <div className="relative w-full h-full">
                 <Image
-                  src="/Gemini_Generated_Image_j4pbpcj4pbpcj4pb.png"
+                  src={`${basePath}/Gemini_Generated_Image_j4pbpcj4pbpcj4pb.png`}
                   alt="Advogada"
                   fill
                   className="object-contain"

@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { Award, Users, Target, Heart } from "lucide-react";
 import Image from "next/image";
+import { useBasePath } from "@/lib/useBasePath";
 
 export default function About() {
+  const basePath = useBasePath();
+  
   const values = [
     {
       icon: Award,
@@ -63,7 +66,7 @@ export default function About() {
           <div className="relative w-full max-w-2xl mx-auto h-64 sm:h-96 rounded-2xl shadow-lg bg-gradient-to-br from-primary-50 to-accent-50 p-6 sm:p-8 flex items-center justify-center">
             <div className="relative w-full h-full">
               <Image
-                src="/Gemini_Generated_Image_2ntiln2ntiln2nti.png"
+                src={`${basePath}/Gemini_Generated_Image_2ntiln2ntiln2nti.png`}
                 alt="Advogada"
                 fill
                 className="object-contain"

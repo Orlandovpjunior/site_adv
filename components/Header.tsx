@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useBasePath } from "@/lib/useBasePath";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const basePath = useBasePath();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +40,7 @@ export default function Header() {
           <Link href="#home" className="flex items-center space-x-2">
             <div className="relative w-10 h-10">
               <Image
-                src="/marca dagua preta.png"
+                src={`${basePath}/marca dagua preta.png`}
                 alt="Logo Beatriz Cunha"
                 fill
                 className="object-contain"
