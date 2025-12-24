@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Scale } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -72,21 +73,24 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Image Placeholder */}
+          {/* Foto da Advogada */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="relative"
+            className="relative flex items-center justify-center"
           >
-            <div className="relative w-full h-[500px] bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
-              {/* Placeholder para imagem da advogada */}
-              <div className="w-64 h-64 bg-white/50 rounded-full flex items-center justify-center">
-                <Scale className="w-32 h-32 text-primary-400" />
+            <div className="relative w-full max-w-md mx-auto h-[500px] rounded-2xl shadow-2xl bg-gradient-to-br from-primary-50 to-accent-50 p-8 flex items-center justify-center">
+              <div className="relative w-full h-full">
+                <Image
+                  src="/Gemini_Generated_Image_j4pbpcj4pbpcj4pb.png"
+                  alt="Advogada"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute top-10 right-10 w-20 h-20 bg-primary-200 rounded-full opacity-50"></div>
-              <div className="absolute bottom-10 left-10 w-32 h-32 bg-accent-200 rounded-full opacity-50"></div>
             </div>
           </motion.div>
         </div>

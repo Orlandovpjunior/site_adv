@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Award, Users, Target, Heart } from "lucide-react";
+import Image from "next/image";
 
 export default function About() {
   const values = [
@@ -51,18 +52,23 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* Image placeholder */}
+        {/* Foto da Advogada */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-16"
+          className="mb-16 flex items-center justify-center"
         >
-          <div className="w-full h-64 sm:h-96 bg-gradient-to-r from-primary-100 to-accent-100 rounded-2xl flex items-center justify-center">
-            <div className="text-center">
-              <Users className="w-24 h-24 text-primary-400 mx-auto mb-4" />
-              <p className="text-gray-500">Espaço para foto da advogada</p>
+          <div className="relative w-full max-w-2xl mx-auto h-64 sm:h-96 rounded-2xl shadow-lg bg-gradient-to-br from-primary-50 to-accent-50 p-6 sm:p-8 flex items-center justify-center">
+            <div className="relative w-full h-full">
+              <Image
+                src="/Gemini_Generated_Image_2ntiln2ntiln2nti.png"
+                alt="Advogada"
+                fill
+                className="object-contain"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
+              />
             </div>
           </div>
         </motion.div>

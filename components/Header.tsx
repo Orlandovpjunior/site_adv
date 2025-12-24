@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,13 +34,19 @@ export default function Header() {
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo - espaço reservado */}
+          {/* Logo */}
           <Link href="#home" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">L</span>
+            <div className="relative w-10 h-10">
+              <Image
+                src="/marca dagua preta.png"
+                alt="Logo Beatriz Cunha"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <span className="text-xl font-bold text-gray-900">
-              Escritório Jurídico
+              Beatriz Cunha
             </span>
           </Link>
 
